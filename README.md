@@ -64,7 +64,7 @@ BEGIN
     
     
     v_customer.customer_id := 101;
-    v_customer.customer_name := 'Alice';
+    v_customer.customer_name := 'claude';
     v_customer.total_amount := 0;
     v_customer.discount := 0;
     v_customer.final_amount := 0;
