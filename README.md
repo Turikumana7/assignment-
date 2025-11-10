@@ -24,9 +24,11 @@ This problem shows how **PL/SQL** can manage complex data and control the progra
 
 
 -- Turn on output before running:
+
 -- SET SERVEROUTPUT ON;
 
 DECLARE
+
     --------------------------------------------------------------------
     -- 1️⃣ COLLECTION: Used to store many product prices for one customer
     --------------------------------------------------------------------
@@ -64,7 +66,6 @@ BEGIN
     v_customer.total_amount := 0;
     v_customer.discount := 0;
     v_customer.final_amount := 0;
-
     --------------------------------------------------------------------
     -- Check if collection has data; if not, jump to error handling
     --------------------------------------------------------------------
@@ -72,7 +73,6 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('No product prices found!');
         GOTO handle_error;
     END IF;
-
     --------------------------------------------------------------------
     -- Sum all product prices
     --------------------------------------------------------------------
@@ -85,22 +85,19 @@ BEGIN
     END LOOP;
 
     v_customer.total_amount := v_sum;
-
+    
     --------------------------------------------------------------------
     -- Apply discount if total ≥ 50,000
-    --------------------------------------------------------------------
-    
+    --------------------------------------------------------------------  
     IF v_customer.total_amount >= v_limit THEN
         v_customer.discount := v_customer.total_amount * v_discount_rate;
     ELSE
         v_customer.discount := 0;
     END IF;
-
     --------------------------------------------------------------------
     -- Calculate final amount
     --------------------------------------------------------------------
     v_customer.final_amount := v_customer.total_amount - v_customer.discount;
-
     --------------------------------------------------------------------
     -- Display customer details
     --------------------------------------------------------------------
@@ -129,13 +126,6 @@ BEGIN
 END;
 /
 
-    --------------------------------------------------------------------
-    -- 🧩 Output Example (if an error is found)
-    --------------------------------------------------------------------
-
-    Invalid price found: -2000
-Error found! Please check your data again.
---- Program Completed ---
 
 
 
