@@ -23,21 +23,21 @@ This problem shows how **PL/SQL** can manage complex data and control the progra
 * **GOTO statements** demonstrate control and direction in a program. They help the program jump to a specific part when something unusual happens, such as an error, making the process more controlled and reliable.
 
 
--- Turn on output before running:
+* Turn on output before running:
 
--- SET SERVEROUTPUT ON;
+ SET SERVEROUTPUT ON;
 
 DECLARE
 
     
-    -- 1. COLLECTION: Used to store many product prices for one customer
+    * 1. COLLECTION: Used to store many product prices for one customer
     
     
-    TYPE Product_List IS TABLE OF NUMBER;  -- A nested table (collection)
+    TYPE Product_List IS TABLE OF NUMBER;  
     v_prices Product_List := Product_List(12000, 18000, 20000, 5000);
 
     
-    -- 2. RECORD: Used to keep all customer information in one variable
+    * 2. RECORD: Used to keep all customer information in one variable
     
     
     TYPE Customer_Record IS RECORD (
@@ -50,7 +50,7 @@ DECLARE
     v_customer Customer_Record;  -- variable of record type
 
     
-    -- 3. CONTROL VARIABLES
+    * 3. CONTROL VARIABLES
     
     
     v_sum NUMBER := 0;
@@ -60,7 +60,7 @@ DECLARE
 BEGIN
 
     
-    -- Initialize customer data
+    * Initialize customer data
     
     
     v_customer.customer_id := 101;
@@ -70,7 +70,7 @@ BEGIN
     v_customer.final_amount := 0;
     
     
-    -- Check if collection has data; if not, jump to error handling
+    * Check if collection has data; if not, jump to error handling
     
     
     IF v_prices.COUNT = 0 THEN
@@ -79,7 +79,7 @@ BEGIN
     END IF;
     
     
-    -- Sum all product prices
+    * Sum all product prices
     
     
     FOR i IN 1 .. v_prices.COUNT LOOP
@@ -93,7 +93,7 @@ BEGIN
     v_customer.total_amount := v_sum;
     
     
-    -- Apply discount if total ≥ 50,000
+    * Apply discount if total ≥ 50,000
       
     
     IF v_customer.total_amount >= v_limit THEN
@@ -103,13 +103,13 @@ BEGIN
     END IF;
     
     
-    -- Calculate final amount
+    * Calculate final amount
     
     
     v_customer.final_amount := v_customer.total_amount - v_customer.discount;
     
     
-    -- Display customer details
+    * Display customer details
     
     
     DBMS_OUTPUT.PUT_LINE('--- CUSTOMER ORDER DETAILS ---');
@@ -122,7 +122,7 @@ BEGIN
     GOTO finish;  -- jump to end section
 
     
-    --  GOTO ERROR HANDLING 
+    *  GOTO ERROR HANDLING 
     
 
     DBMS_OUTPUT.PUT_LINE('Error found! Please check your data again.');
