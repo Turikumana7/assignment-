@@ -29,16 +29,16 @@ This problem shows how **PL/SQL** can manage complex data and control the progra
 
 DECLARE
 
-    --------------------------------------------------------------------
-    -- 1️⃣ COLLECTION: Used to store many product prices for one customer
-    --------------------------------------------------------------------
+    
+    -- 1. COLLECTION: Used to store many product prices for one customer
+    
     
     TYPE Product_List IS TABLE OF NUMBER;  -- A nested table (collection)
     v_prices Product_List := Product_List(12000, 18000, 20000, 5000);
 
-    --------------------------------------------------------------------
-    -- 2️⃣ RECORD: Used to keep all customer information in one variable
-    --------------------------------------------------------------------
+    
+    -- 2. RECORD: Used to keep all customer information in one variable
+    
     
     TYPE Customer_Record IS RECORD (
         customer_id    NUMBER,
@@ -49,9 +49,9 @@ DECLARE
     );
     v_customer Customer_Record;  -- variable of record type
 
-    --------------------------------------------------------------------
-    -- 3️⃣ CONTROL VARIABLES
-    --------------------------------------------------------------------
+    
+    -- 3. CONTROL VARIABLES
+    
     
     v_sum NUMBER := 0;
     v_discount_rate CONSTANT NUMBER := 0.10; -- 10% discount
@@ -59,9 +59,9 @@ DECLARE
 
 BEGIN
 
-    --------------------------------------------------------------------
+    
     -- Initialize customer data
-    --------------------------------------------------------------------
+    
     
     v_customer.customer_id := 101;
     v_customer.customer_name := 'Alice';
@@ -69,18 +69,18 @@ BEGIN
     v_customer.discount := 0;
     v_customer.final_amount := 0;
     
-    --------------------------------------------------------------------
+    
     -- Check if collection has data; if not, jump to error handling
-    --------------------------------------------------------------------
+    
     
     IF v_prices.COUNT = 0 THEN
         DBMS_OUTPUT.PUT_LINE('No product prices found!');
         GOTO handle_error;
     END IF;
     
-    --------------------------------------------------------------------
+    
     -- Sum all product prices
-    --------------------------------------------------------------------
+    
     
     FOR i IN 1 .. v_prices.COUNT LOOP
         IF v_prices(i) <= 0 THEN
@@ -92,9 +92,9 @@ BEGIN
 
     v_customer.total_amount := v_sum;
     
-    --------------------------------------------------------------------
+    
     -- Apply discount if total ≥ 50,000
-    --------------------------------------------------------------------  
+      
     
     IF v_customer.total_amount >= v_limit THEN
         v_customer.discount := v_customer.total_amount * v_discount_rate;
@@ -102,15 +102,15 @@ BEGIN
         v_customer.discount := 0;
     END IF;
     
-    --------------------------------------------------------------------
+    
     -- Calculate final amount
-    --------------------------------------------------------------------
+    
     
     v_customer.final_amount := v_customer.total_amount - v_customer.discount;
     
-    --------------------------------------------------------------------
+    
     -- Display customer details
-    --------------------------------------------------------------------
+    
     
     DBMS_OUTPUT.PUT_LINE('--- CUSTOMER ORDER DETAILS ---');
     DBMS_OUTPUT.PUT_LINE('Customer ID: ' || v_customer.customer_id);
@@ -121,20 +121,16 @@ BEGIN
 
     GOTO finish;  -- jump to end section
 
-    --------------------------------------------------------------------
-    -- 🧩 GOTO ERROR HANDLING SECTION
-    --------------------------------------------------------------------
     
-    <<handle_error>>
+    --  GOTO ERROR HANDLING 
+    
+
     DBMS_OUTPUT.PUT_LINE('Error found! Please check your data again.');
     GOTO finish;
 
-    --------------------------------------------------------------------
-    -- 🏁 FINISH SECTION
-    --------------------------------------------------------------------
     
-    <<finish>>
-    DBMS_OUTPUT.PUT_LINE('--- Program Completed ---');
+
+ 
 
 END;
 /
