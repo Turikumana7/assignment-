@@ -58,24 +58,30 @@ DECLARE
     v_limit CONSTANT NUMBER := 50000;        -- discount limit
 
 BEGIN
+
     --------------------------------------------------------------------
     -- Initialize customer data
     --------------------------------------------------------------------
+    
     v_customer.customer_id := 101;
     v_customer.customer_name := 'Alice';
     v_customer.total_amount := 0;
     v_customer.discount := 0;
     v_customer.final_amount := 0;
+    
     --------------------------------------------------------------------
     -- Check if collection has data; if not, jump to error handling
     --------------------------------------------------------------------
+    
     IF v_prices.COUNT = 0 THEN
         DBMS_OUTPUT.PUT_LINE('No product prices found!');
         GOTO handle_error;
     END IF;
+    
     --------------------------------------------------------------------
     -- Sum all product prices
     --------------------------------------------------------------------
+    
     FOR i IN 1 .. v_prices.COUNT LOOP
         IF v_prices(i) <= 0 THEN
             DBMS_OUTPUT.PUT_LINE('Invalid price found: ' || v_prices(i));
@@ -89,18 +95,23 @@ BEGIN
     --------------------------------------------------------------------
     -- Apply discount if total ≥ 50,000
     --------------------------------------------------------------------  
+    
     IF v_customer.total_amount >= v_limit THEN
         v_customer.discount := v_customer.total_amount * v_discount_rate;
     ELSE
         v_customer.discount := 0;
     END IF;
+    
     --------------------------------------------------------------------
     -- Calculate final amount
     --------------------------------------------------------------------
+    
     v_customer.final_amount := v_customer.total_amount - v_customer.discount;
+    
     --------------------------------------------------------------------
     -- Display customer details
     --------------------------------------------------------------------
+    
     DBMS_OUTPUT.PUT_LINE('--- CUSTOMER ORDER DETAILS ---');
     DBMS_OUTPUT.PUT_LINE('Customer ID: ' || v_customer.customer_id);
     DBMS_OUTPUT.PUT_LINE('Customer Name: ' || v_customer.customer_name);
@@ -113,6 +124,7 @@ BEGIN
     --------------------------------------------------------------------
     -- 🧩 GOTO ERROR HANDLING SECTION
     --------------------------------------------------------------------
+    
     <<handle_error>>
     DBMS_OUTPUT.PUT_LINE('Error found! Please check your data again.');
     GOTO finish;
@@ -120,6 +132,7 @@ BEGIN
     --------------------------------------------------------------------
     -- 🏁 FINISH SECTION
     --------------------------------------------------------------------
+    
     <<finish>>
     DBMS_OUTPUT.PUT_LINE('--- Program Completed ---');
 
