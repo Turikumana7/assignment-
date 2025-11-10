@@ -30,12 +30,14 @@ DECLARE
     --------------------------------------------------------------------
     -- 1️⃣ COLLECTION: Used to store many product prices for one customer
     --------------------------------------------------------------------
+    
     TYPE Product_List IS TABLE OF NUMBER;  -- A nested table (collection)
     v_prices Product_List := Product_List(12000, 18000, 20000, 5000);
 
     --------------------------------------------------------------------
     -- 2️⃣ RECORD: Used to keep all customer information in one variable
     --------------------------------------------------------------------
+    
     TYPE Customer_Record IS RECORD (
         customer_id    NUMBER,
         customer_name  VARCHAR2(30),
@@ -48,6 +50,7 @@ DECLARE
     --------------------------------------------------------------------
     -- 3️⃣ CONTROL VARIABLES
     --------------------------------------------------------------------
+    
     v_sum NUMBER := 0;
     v_discount_rate CONSTANT NUMBER := 0.10; -- 10% discount
     v_limit CONSTANT NUMBER := 50000;        -- discount limit
@@ -86,6 +89,7 @@ BEGIN
     --------------------------------------------------------------------
     -- Apply discount if total ≥ 50,000
     --------------------------------------------------------------------
+    
     IF v_customer.total_amount >= v_limit THEN
         v_customer.discount := v_customer.total_amount * v_discount_rate;
     ELSE
