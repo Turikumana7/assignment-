@@ -9,7 +9,7 @@
 
 
 
----
+
 
 
 ### **The problem is to create a PL/SQL program that can store and manage many related data items together. The program should be able to keep several values in one group, store different types of information about one item, and control the flow of the program using jumps when needed.**
@@ -24,7 +24,6 @@ This problem shows how **PL/SQL** can manage complex data and control the progra
 
 
 
----
 
 
 
